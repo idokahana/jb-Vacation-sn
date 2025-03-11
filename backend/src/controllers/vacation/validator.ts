@@ -12,4 +12,10 @@ export const vacationIdValidator = Joi.object({
   vacationId: Joi.string().uuid().required(),
 });
 
-
+export const newVacationFilesValidator = Joi.object({
+  postImage: Joi.object({
+    mimetype: Joi.string().valid("image/png", "image/jpg", "image/jpeg"),
+  })
+    .unknown(true)
+    .optional(),
+});

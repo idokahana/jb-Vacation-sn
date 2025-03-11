@@ -5,19 +5,28 @@ import {
   removeVacation,
   updateVacation,
 } from "../controllers/vacation/controller";
-import validation from "../middlewares/validation";
 import {
+  newVacationFilesValidator,
   vacationIdValidator,
   vacationValidator,
 } from "../controllers/vacation/validator";
-import paramsValidation from "../middlewares/params-validation";
 import enforceAuth from "../middlewares/enforce-auth";
+import fileUploader from "../middlewares/file-uploader";
+import filesValidation from "../middlewares/files-validations";
+import paramsValidation from "../middlewares/params-validation";
+import validation from "../middlewares/validation";
 
 const vacationRouter = Router();
 
 vacationRouter.use(enforceAuth);
 vacationRouter.get("/", getAllVacation);
-vacationRouter.post("/", validation(vacationValidator), createNewVacation);
+vacationRouter.post(
+  "/",
+  validation(vacationValidator),
+  filesValidation(newVacationFilesValidator),
+  fileUploader,
+  createNewVacation
+);
 vacationRouter.delete(
   "/:vacationId",
   paramsValidation(vacationIdValidator),

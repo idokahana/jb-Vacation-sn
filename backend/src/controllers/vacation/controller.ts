@@ -24,31 +24,19 @@ export async function getAllVacation(
 }
 
 export async function createNewVacation(
-  req: Request<
-    {},
-    {},
-    {
-      destination: string;
-      vacationDescription: string;
-      startingDate: Date;
-      endingDate: Date;
-      price: number;
-    }
-  >,
+  req: Request,
   res: Response,
   next: NextFunction
 ) {
-  const { destination, vacationDescription, startingDate, endingDate, price } =
-    req.body;
+  let createParams = { ...req.body };
+
+  if (req.imageUrl) {
+    const { imageUrl } = req;
+    createParams = { ...createParams, imageUrl };
+  }
 
   try {
-    const newVacation = await Vacation.create({
-      destination,
-      vacationDescription,
-      startingDate,
-      endingDate,
-      price,
-    });
+    const newVacation = await Vacation.create(createParams);
 
     res.json(newVacation);
   } catch (e) {
@@ -108,6 +96,7 @@ export async function updateVacation(
       endingDate,
       price,
     } = req.body;
+
     const vacation = await Vacation.findByPk(vacationId);
 
     if (!vacation)
