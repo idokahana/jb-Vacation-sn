@@ -1,10 +1,16 @@
 {
-    "app": {
-        "name": "APP_NAME",
-        "port": "APP_PORT",
-        "secret": "APP_SECRET"
-    },
-    "db": {
-        "password": "DB_PASSWORD"
+  "app": {
+    "name": "APP_NAME",
+    "port": "APP_PORT",
+    "secret": "APP_SECRET"
+  },
+  "db": {
+    "password": "DB_PASSWORD"
+  },
+
+  "s3": {
+    "connection": {
+      "endpoint": "S3_ENDPOINT"
     }
+  }
 }

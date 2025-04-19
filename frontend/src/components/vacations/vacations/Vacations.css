@@ -1,0 +1,142 @@
+.Vacations {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  min-height: 100vh;
+  font-family: "Arial", sans-serif;
+}
+
+.Vacation {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  margin: 15px;
+  padding: 20px;
+  width: 300px;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+  overflow: hidden;
+}
+
+.Vacation:hover {
+  transform: translateY(-10px);
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.vacation-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.vacation-details {
+  padding: 10px 0;
+}
+
+.vacation-details h2 {
+  font-size: 22px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.vacation-details p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.vacation-details p strong {
+  font-weight: bold;
+  color: #333;
+}
+
+.Vacation .price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #6e8efb;
+  margin-top: 10px;
+}
+
+.Vacation .dates {
+  font-size: 14px;
+  color: #888;
+  margin-top: 5px;
+}
+
+.pagination-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.pagination {
+  display: flex;
+  gap: 12px;
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 12px 24px;
+  border-radius: 12px;
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.pagination button {
+  background-color: #6e8efb;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.pagination button:hover {
+  background-color: #5a76e5;
+}
+
+.pagination button:disabled {
+  background-color: #c5c5c5;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  color: #444;
+}
+
+.filters {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  margin-top: -10px;
+  flex-wrap: wrap;
+}
+
+.filters button {
+  padding: 6px 14px;
+  font-size: 13px;
+  background-color: #f5f5f5;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.filters button:hover {
+  background-color: #6e8efb;
+  color: white;
+  border-color: #6e8efb;
+}
+
+.filters button.active {
+  background-color: #6e8efb;
+  color: white;
+  border-color: #6e8efb;
+}

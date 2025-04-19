@@ -3,6 +3,20 @@ import { StatusCodes } from "http-status-codes";
 import AppError from "../../errors/app-error";
 import Follow from "../../models/follow";
 
+export async function getAllFollows(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const follows = await Follow.findAll();
+
+    res.json(follows);
+  } catch (e) {
+    next(e);
+  }
+}
+
 export async function followVacation(
   req: Request<{ vacationId: string }>,
   res: Response,

@@ -36,6 +36,8 @@ vacationRouter.patch(
   "/:vacationId",
   paramsValidation(vacationIdValidator),
   validation(vacationValidator),
+  filesValidation(newVacationFilesValidator),
+  fileUploader,
   updateVacation
 );
 export default vacationRouter;

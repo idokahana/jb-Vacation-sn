@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
+import { StatusCodes } from "http-status-codes";
+import AppError from "../../errors/app-error";
 import User from "../../models/user";
 import Vacation from "../../models/vacation";
-import AppError from "../../errors/app-error";
-import { StatusCodes } from "http-status-codes";
 
 export async function getAllVacation(
   req: Request,
@@ -82,6 +82,7 @@ export async function updateVacation(
       startingDate: Date;
       endingDate: Date;
       price: number;
+      postImage: string;
     }
   >,
   res: Response,
@@ -95,6 +96,7 @@ export async function updateVacation(
       startingDate,
       endingDate,
       price,
+      postImage,
     } = req.body;
 
     const vacation = await Vacation.findByPk(vacationId);
@@ -112,6 +114,10 @@ export async function updateVacation(
     vacation.startingDate = startingDate;
     vacation.endingDate = endingDate;
     vacation.price = price;
+
+    if (req.imageUrl) {
+      vacation.imageUrl = req.imageUrl;
+    }
 
     await vacation.save();
     res.json({ vacation });

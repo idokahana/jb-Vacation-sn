@@ -1,0 +1,31 @@
+.vacation-report {
+  text-align: center;
+  padding: 2rem;
+}
+
+.vacation-report h2 {
+  color: #1976d2;
+}
+
+.vacation-report ul {
+  text-align: left;
+  max-width: 700px;
+  margin: 2rem auto;
+  font-size: 1rem;
+}
+
+.download-btn {
+  margin-top: 1.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+.download-btn:hover {
+  background-color: #1976d2;
+}

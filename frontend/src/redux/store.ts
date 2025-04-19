@@ -1,17 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { followingSlice } from "./followingSlice";
-import { profileSlice } from "./profileSlice";
-import { feedSlice } from "./feedSlice";
+import { vacationSlice } from "./vacationSlice";
+import { followSlice } from "./followsSlice";
 
 const store = configureStore({
-    reducer: { // i.e. slices
-        following: followingSlice.reducer, // i.e a single slice
-        profile: profileSlice.reducer,
-        feed: feedSlice.reducer
-    }
-})
+  reducer: {
+    vacation: vacationSlice.reducer,
+    follows: followSlice.reducer,
+  },
+});
 
-export default store
+export default store;
 
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

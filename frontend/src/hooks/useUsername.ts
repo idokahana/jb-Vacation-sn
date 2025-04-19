@@ -1,16 +1,15 @@
-import { jwtDecode } from "jwt-decode"
-import { useContext, useMemo } from "react"
-import User from "../models/user/User"
-import { AuthContext } from "../components/auth/auth/Auth"
+import { jwtDecode } from "jwt-decode";
+import { useContext, useMemo } from "react";
+import User from "../models/user/User";
+import { AuthContext } from "../components/auth/auth/Auth";
 
 export default function useUsername() {
-    const { jwt } = useContext(AuthContext)!
-    // const { name } = jwtDecode<User>(jwt)
+  const { jwt } = useContext(AuthContext)!;
 
-    const name = useMemo(() => {
-        const { name } = jwtDecode<User>(jwt)
-        return name
-    }, [ jwt ])
+  const firstName = useMemo(() => {
+    const { firstName } = jwtDecode<User>(jwt);
+    return firstName;
+  }, [jwt]);
 
-    return name
+  return firstName;
 }

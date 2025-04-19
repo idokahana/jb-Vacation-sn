@@ -9,6 +9,7 @@ declare global {
   namespace Express {
     interface Request {
       userId: string;
+      role: string;
     }
   }
 }
@@ -39,6 +40,8 @@ export default function enforceAuth(
   try {
     const user = verify(parts[1], config.get<string>("app.jwtSecret")) as User;
     req.userId = user.userId;
+    req.role = user.role;
+
     next();
   } catch (e) {
     next(new AppError(StatusCodes.UNAUTHORIZED, "invalid JWT"));

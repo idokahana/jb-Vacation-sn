@@ -1,34 +1,61 @@
-import { NavLink } from 'react-router-dom'
-import './Header.css'
-import useUsername from '../../../hooks/useUsername'
-import { useContext } from 'react'
-import { AuthContext } from '../../auth/auth/Auth'
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import useRole from "../../../hooks/useRole";
+import useUsername from "../../../hooks/useUsername";
+import { AuthContext } from "../../auth/auth/Auth";
+import "./Header.css";
 
 export default function Header() {
+  const name = useUsername();
+  const role = useRole();
+  const { logout } = useContext(AuthContext)!;
+  const navigate = useNavigate();
 
-    const name = useUsername()
+  function logMeOut() {
+    logout();
+  }
 
-    const { logout } = useContext(AuthContext)!
+  function newVacation() {
+    navigate("/vacation/newVacation");
+  }
 
-    function logMeOut() {
-        logout()
-    }
+  function vacationReport() {
+    navigate("/vacationReport");
+  }
+  function vacation() {
+    navigate("/vacation");
+  }
 
-    return (
-        <div className='Header'>
-            <div>
-                Logo
-            </div>  
-            <div>
-                <nav>
-                    <NavLink to="/profile">profile</NavLink>
-                    <NavLink to="/feed">feed</NavLink>
-                    <NavLink to="/search">search</NavLink>
-                </nav>
-            </div>          
-            <div>
-                Hello {name} | <button onClick={logMeOut}>logout</button>
-            </div>
-        </div>
-    )
+  return (
+    <header className="header">
+      <a onClick={vacation}>
+        {" "}
+        <div className="logo">🌴 VacationApp</div>
+      </a>
+
+      <div className="user-info">
+        <span className="greeting">
+          {role === "admin" ? (
+            <span>Admin Controls</span>
+          ) : (
+            <span> Hello {name}!</span>
+          )}
+        </span>
+
+        {role === "admin" && (
+          <button className="new-vacation-btn" onClick={newVacation}>
+            + New Vacation
+          </button>
+        )}
+        {role === "admin" && (
+          <button className="new-vacation-btn" onClick={vacationReport}>
+            Vacation Report
+          </button>
+        )}
+        <button className="logout-btn" onClick={logMeOut}>
+          Logout
+        </button>
+      </div>
+    </header>
+  );
 }

@@ -1,0 +1,39 @@
+.NotFound {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  font-family: "Arial", sans-serif;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.NotFound .notFound-h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.NotFound .notFound-p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.NotFound .notFound-div {
+  font-size: 16px;
+  color: #fff;
+  margin-top: 10px;
+}
+
+.NotFound .notFound-a {
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.NotFound .notFound-a:hover {
+  text-decoration: underline;
+}

@@ -1,35 +1,180 @@
-version: '3.8'
+# # # version: "3.8"
+
+# # # services:
+# # #   database:
+# # #     container_name: vacation-compose-database
+# # #     environment:
+# # #       - MYSQL_ALLOW_EMPTY_PASSWORD=1
+# # #       - MYSQL_DATABASE=jb-Vacation-sn
+# # #       - MYSQL_TCP_PORT=3306
+# # #     ports:
+# # #       - "3306:3306"
+# # #     build: ./database
+# # #     healthcheck:
+# # #       test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1"]
+# # #       interval: 1m30s
+# # #       timeout: 30s
+# # #       retries: 5
+# # #       start_period: 60s
+
+# # #   backend:
+# # #     container_name: vacation-compose-backend
+# # #     ports:
+# # #       - 3000:3000
+# # #     environment:
+# # #       - NODE_ENV=compose
+# # #     build: ./backend
+# # #     depends_on:
+# # #       database:
+# # #         condition: service_healthy
+
+# # #   frontend:
+# # #     container_name: vacation-compose-frontend
+# # #     ports:
+# # #       - 5173:80
+# # #     build: ./frontend
+# # version: "3.8"
+
+# # services:
+# #   database:
+# #     container_name: vacation-compose-database
+# #     image: mysql:8.0
+# #     environment:
+# #       - MYSQL_ALLOW_EMPTY_PASSWORD=1
+# #       - MYSQL_DATABASE=jb-Vacation-sn
+# #       - MYSQL_TCP_PORT=3306
+# #     ports:
+# #       - "3306:3306"
+# #     volumes:
+# #       - ./db:/docker-entrypoint-initdb.d # אם יש לך קובץ SQL לייבוא ראשוני
+# #     healthcheck:
+# #       test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1"]
+# #       interval: 30s
+# #       timeout: 10s
+# #       retries: 5
+# #       start_period: 30s
+
+# #   localstack:
+# #     container_name: vacation-compose-localstack
+# #     image: localstack/localstack:latest
+# #     ports:
+# #       - "4566:4566" # API Gateway + S3 + SNS + SQS וכו'
+# #     environment:
+# #       - SERVICES=s3
+# #       - DEBUG=1
+# #       - DATA_DIR=/tmp/localstack/data
+# #       - DOCKER_HOST=unix:///var/run/docker.sock
+# #     volumes:
+# #       - /var/run/docker.sock:/var/run/docker.sock
+# #       - ./localstack:/etc/localstack/init/ready.d # אם יש לך סקריפטים שירוצו בעליה
+
+# #   backend:
+# #     container_name: vacation-compose-backend
+# #     build: ./backend
+# #     ports:
+# #       - "3000:3000"
+# #     environment:
+# #       - NODE_ENV=compose
+# #     depends_on:
+# #       database:
+# #         condition: service_healthy
+# #       localstack:
+# #         condition: service_started
+
+# #   frontend:
+# #     container_name: vacation-compose-frontend
+# #     build: ./frontend
+# #     ports:
+# #       - "5173:80"
+# #     depends_on:
+# #       - backend
+# version: "3.8"
+
+# services:
+#   database:
+#     container_name: vacation-compose-database
+#     image: mysql:8.0
+#     environment:
+#       - MYSQL_ALLOW_EMPTY_PASSWORD=1
+#       - MYSQL_DATABASE=jb-Vacation-sn
+#       - MYSQL_TCP_PORT=3306
+#     ports:
+#       - "3306:3306"
+#     volumes:
+#       - ./db:/docker-entrypoint-initdb.d
+#     healthcheck:
+#       test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1"]
+#       interval: 30s
+#       timeout: 10s
+#       retries: 5
+#       start_period: 30s
+
+#   backend:
+#     container_name: vacation-compose-backend
+#     build: ./backend
+#     ports:
+#       - "3000:3000"
+#     environment:
+#       - NODE_ENV=compose
+#     depends_on:
+#       database:
+#         condition: service_healthy
+#       localstack:
+#         condition: service_started
+
+#   frontend:
+#     container_name: vacation-compose-frontend
+#     build: ./frontend
+#     ports:
+#       - "5173:80"
+#     depends_on:
+#       - backend
+
+version: "3.8"
 
 services:
   database:
-    container_name: sn-compose-database
+    container_name: vacation-compose-database
+    image: mysql:8.0
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=1
-      - MYSQL_DATABASE=twitter
+      - MYSQL_DATABASE=jb-Vacation-sn
       - MYSQL_TCP_PORT=3306
     ports:
       - "3306:3306"
-    build: ./database
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
     healthcheck:
-      test: [ "CMD", "mysqladmin", "ping", "-h", "127.0.0.1" ]
-      interval: 1m30s
-      timeout: 30s
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1"]
+      interval: 30s
+      timeout: 10s
       retries: 5
-      start_period: 60s
+      start_period: 30s
 
   backend:
-    container_name: sn-compose-backend
+    container_name: vacation-compose-backend
+    build: ./backend
     ports:
-      - 3000:3000
+      - "3000:3000"
     environment:
       - NODE_ENV=compose
-    build: ./backend
     depends_on:
       database:
         condition: service_healthy
+      localstack:
+        condition: service_started
 
   frontend:
-    container_name: sn-compose-frontend
-    ports:
-      - 5173:80
+    container_name: vacation-compose-frontend
     build: ./frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+
+  localstack:
+    container_name: vacation-localstack
+    image: localstack/localstack
+    ports:
+      - 127.0.0.1:4566:4566
+      - 127.0.0.1:4510-4559:4510-4559
