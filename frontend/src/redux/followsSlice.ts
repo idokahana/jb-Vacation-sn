@@ -27,11 +27,6 @@ export const followSlice = createSlice({
           v.vacationId !== action.payload.vacationId ||
           v.userId !== action.payload.userId
       );
-      //   state.follows = state.follows.filter(
-      //     (v) =>
-      //       v.vacationId !== action.payload.vacationId &&
-      //       v.userId !== action.payload.userId
-      //   );
     },
   },
 });

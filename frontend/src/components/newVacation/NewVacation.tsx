@@ -34,7 +34,7 @@ export default function NewVacation(): JSX.Element {
     }
   }
   return (
-    <div className="NewPost">
+    <div className="newVacation">
       <form className="editVacation-form" onSubmit={handleSubmit(submit)}>
         <label className="editVacation-label">Destination</label>
         <input
