@@ -8,13 +8,38 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { useAppSelector } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import "./VacationReport.css";
+import VacationService from "../../services/auth-aware/Vacations";
+import Followservice from "../../services/auth-aware/FollowsService";
+import useService from "../../hooks/useService";
+import { initFollows } from "../../redux/followsSlice";
+import { init } from "../../redux/vacationSlice";
 
 export default function VacationReport(): JSX.Element {
   const [data, setData] = useState<{ name: string; followers: number }[]>([]);
   const follows = useAppSelector((state) => state.follows.follows);
   const vacations = useAppSelector((state) => state.vacation.vacation);
+
+  const vacationService = useService(VacationService);
+  const followService = useService(Followservice);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    async function fetchData() {
+      if (vacations.length === 0) {
+        const allVacations = await vacationService.getAllVacation();
+        dispatch(init(allVacations));
+      }
+
+      if (follows.length === 0) {
+        const allFollows = await followService.getAllFollows();
+        dispatch(initFollows(allFollows));
+      }
+    }
+
+    fetchData();
+  }, []);
 
   useEffect(() => {
     async function loadData() {
@@ -32,7 +57,7 @@ export default function VacationReport(): JSX.Element {
     }
 
     loadData();
-  }, []);
+  }, [vacations, follows]);
 
   function downloadCSV() {
     function escapeCSVValue(value: string | number): string {
